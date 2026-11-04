@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { Breadcrumbs, Cta } from '@/components/ui';
+import { Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { terms, glossaryTags, termBySlug } from '@/data/glossary';
 
 export default function Glossary() {
@@ -28,7 +28,7 @@ export default function Glossary() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Glossary', path: '/glossary' }]} />
           <div className="pagehero__grid">
@@ -76,7 +76,7 @@ export default function Glossary() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

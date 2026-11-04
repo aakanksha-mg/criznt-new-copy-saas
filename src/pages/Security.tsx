@@ -1,17 +1,17 @@
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, CheckList, FeatureList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList, FeatureList } from '@/components/ui';
 import { SecurityControlConsole } from '@/components/security/SecurityControlConsole';
 import { site } from '@/lib/site';
 
 export default function Security() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Security & Trust', path: '/security' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Security &amp; trust</span>
+              <span className="eyebrow">Security, Cryptography &amp; Trust</span>
               <h1 className="pagehero__title">
                 Commission data is <span className="accent">payroll-adjacent</span>
               </h1>
@@ -20,16 +20,16 @@ export default function Security() {
                 implies, and we are specific about where the boundary of our responsibility sits.
               </p>
             </div>
+            <div>
+              <SecurityControlConsole />
+            </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <SecurityControlConsole />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead eyebrow="Controls" title="How the platform is built" />
-          </div>
+          <SectionHead eyebrow="Controls" title="How the platform is built" />
           <FeatureList
             accentFirst
             items={[

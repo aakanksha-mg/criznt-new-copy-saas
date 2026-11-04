@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { ValueChainTopology } from '@/components/products/ValueChainTopology';
 import { products, productEvidence } from '@/data/products';
@@ -8,12 +8,12 @@ import { products, productEvidence } from '@/data/products';
 export default function Products() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Products', path: '/products' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Products</span>
+              <span className="eyebrow">The Crizant Product Suite</span>
               <h1 className="pagehero__title">
                 Three systems,{' '}
                 <span className="accent gradtext">one distribution chain.</span>
@@ -25,30 +25,27 @@ export default function Products() {
                 independently, and share nothing except an opinion about what an audit trail is
                 for.
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="eyebrow eyebrow--muted" style={{ fontSize: '0.72rem' }}>Why three and not one</span>
+                <p className="card__body" style={{ fontSize: '0.82rem', margin: 0 }}>
+                  A commission engine, a broking workspace and a fraud unit have genuinely different buyers, different regulators and different definitions of a good day.
+                </p>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="eyebrow eyebrow--muted">Why three and not one</span>
-              <p className="card__body">
-                A commission engine, a broking workspace and a fraud unit have genuinely different
-                buyers, different regulators and different definitions of a good day. Bundling
-                them into one product would mean every customer paying for two-thirds they do not
-                use.
-              </p>
+            <div>
+              <ValueChainTopology />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <ValueChainTopology />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead
-              eyebrow="The family"
-              title="Who each one is for"
-              lead="The quickest way to tell them apart is to ask who signs the invoice."
-            />
-          </div>
+          <SectionHead
+            eyebrow="The family"
+            title="Who each one is for"
+            lead="The quickest way to tell them apart is to ask who signs the invoice."
+          />
           <Stagger className="grid grid--3">
             {products.map((p) => (
               <Link key={p.slug} to={p.to} className="card card--hover card--pad-lg spot">

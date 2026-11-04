@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { Breadcrumbs, Cta, SectionHead } from '@/components/ui';
+import { Breadcrumbs, PageHero, Cta, SectionHead } from '@/components/ui';
 import { Markdown, parseHeadings } from '@/components/Markdown';
 import { articleBySlug, sortedArticles } from '@/data/insights';
 import { site } from '@/lib/site';
@@ -24,7 +24,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -42,7 +42,7 @@ export default function ArticlePage() {
             {a.deck}
           </p>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

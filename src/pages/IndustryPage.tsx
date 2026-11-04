@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import {
   SectionHead,
   Breadcrumbs,
+  PageHero,
   Cta,
   Quote,
   FeatureList,
@@ -47,7 +48,7 @@ export default function IndustryPage() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -57,24 +58,27 @@ export default function IndustryPage() {
           />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">{ind.nav}</span>
+              <span className="eyebrow">{ind.nav} · Channel Operating Model</span>
               <h1 className="pagehero__title">{ind.name}</h1>
               <p className="lead" style={{ marginTop: 'var(--space-4)' }}>
                 {ind.promise}
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="eyebrow eyebrow--muted" style={{ fontSize: '0.72rem' }}>The reversal, here</span>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', marginBottom: 'var(--space-1)' }}>
+                  <strong>You pay on:</strong> {ind.payOn}
+                </p>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: 0 }}>
+                  <strong>It reverses when:</strong> {ind.reverses}
+                </p>
+              </div>
             </div>
-            <div className="card">
-              <span className="eyebrow eyebrow--muted">The reversal, here</span>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: 'var(--space-2)' }}>
-                <strong>You pay on:</strong> {ind.payOn}
-              </p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', margin: 0 }}>
-                <strong>It reverses when:</strong> {ind.reverses}
-              </p>
+            <div>
+              <IndustryReversalSandbox industrySlug={ind.slug} />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
@@ -89,7 +93,10 @@ export default function IndustryPage() {
                 <Quote text={ind.quote} who={ind.quoteWho} />
               </div>
             </div>
-            <IndustryReversalSandbox industrySlug={ind.slug} />
+            <div className="card card--pad-lg">
+              <span className="eyebrow">Operating Architecture</span>
+              <p className="card__body">{ind.fix}</p>
+            </div>
           </div>
         </div>
       </section>

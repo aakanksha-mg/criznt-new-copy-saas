@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { Breadcrumbs, Cta } from '@/components/ui';
+import { Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { answers, answerTopics, type AnswerTopic } from '@/data/answers';
 
 export default function Answers() {
@@ -19,7 +19,7 @@ export default function Answers() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Answers', path: '/answers' }]} />
           <div className="pagehero__grid">
@@ -36,7 +36,7 @@ export default function Answers() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

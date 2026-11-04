@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat, CheckList } from '@/components/ui';
 import { site } from '@/lib/site';
 import { servedRegions } from '@/data/compliance';
 import { platformMetrics } from '@/data/metrics';
@@ -10,7 +10,7 @@ import { Stagger } from '@/components/motion';
 export default function About() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'About', path: '/about' }]} />
           <div className="pagehero__grid">
@@ -30,7 +30,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

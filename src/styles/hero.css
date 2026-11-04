@@ -109,6 +109,8 @@
 .pagehero__title { font-size: var(--fs-h1); line-height: 1.05; letter-spacing: -0.03em; }
 .pagehero__grid { display: grid; gap: var(--space-5); position: relative; z-index: 1; }
 @media (min-width: 980px) { .pagehero__grid { grid-template-columns: 1.3fr 0.7fr; align-items: end; gap: var(--space-6); } }
+.pagehero--console .pagehero__grid { grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 980px) { .pagehero--console .pagehero__grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: var(--space-6); } }
 
 /* the live-pipeline visual on the home hero */
 .pipeline { display: grid; gap: var(--space-2); }

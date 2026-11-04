@@ -1,5 +1,5 @@
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { RegulatoryRuleAuditor } from '@/components/compliance/RegulatoryRuleAuditor';
 import { frameworks, servedRegions } from '@/data/compliance';
@@ -13,12 +13,12 @@ export default function Compliance() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Global Compliance', path: '/compliance' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Global compliance</span>
+              <span className="eyebrow">Global Compliance · Statutory Engine</span>
               <h1 className="pagehero__title">
                 Markets served and frameworks built are{' '}
                 <span className="accent">two different claims</span>
@@ -29,16 +29,16 @@ export default function Compliance() {
                 people who check.
               </p>
             </div>
+            <div>
+              <RegulatoryRuleAuditor />
+            </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <RegulatoryRuleAuditor />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead eyebrow="Pre-built" title="Frameworks shipped in the product" />
-          </div>
+          <SectionHead eyebrow="Pre-built" title="Frameworks shipped in the product" />
           <div className="stack stack--lg">
             {frameworks.map((f) => (
               <div className="card card--pad-lg" key={f.region}>

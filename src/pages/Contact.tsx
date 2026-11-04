@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, CheckList } from '@/components/ui';
 import { site } from '@/lib/site';
 import { industries } from '@/data/industries';
 
@@ -114,7 +114,7 @@ export default function Contact() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Contact', path: '/contact' }]} />
           <div className="pagehero__grid">
@@ -131,7 +131,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

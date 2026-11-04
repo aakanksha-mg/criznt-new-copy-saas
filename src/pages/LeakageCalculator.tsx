@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { answers } from '@/data/answers';
 import { useCompanyIdentification, trackCalculationLead } from '@/lib/visitor';
@@ -291,7 +291,7 @@ Run parallel reconciliation against your last closed cycle: https://www.crizant.
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Leakage Calculator', path: '/leakage-calculator' }]} />
           <div className="pagehero__grid">
@@ -324,7 +324,7 @@ Run parallel reconciliation against your last closed cycle: https://www.crizant.
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* ---------------------------------- Company Domain Detection Banner --- */}
       <section className="section section--tight section--sunken" style={{ borderBottom: '1px solid var(--hairline)' }}>

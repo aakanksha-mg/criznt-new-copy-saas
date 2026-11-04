@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, CheckList, Quote } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList, Quote } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
 import { principles, scale, practices, stack } from '@/data/engineering';
 import { answers } from '@/data/answers';
+import { EngineHeroSimulator } from '@/components/home/EngineHeroSimulator';
 import { RuleEngineAstSandbox } from '@/components/engineering/RuleEngineAstSandbox';
 import { BitemporalAuditScrubber } from '@/components/engineering/BitemporalAuditScrubber';
 import { ClawbackStateMachine } from '@/components/engineering/ClawbackStateMachine';
@@ -22,12 +23,12 @@ export default function Engineering() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Engineering', path: '/engineering' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Engineering</span>
+              <span className="eyebrow">Engineering Architecture</span>
               <h1 className="pagehero__title">
                 Commission is an{' '}
                 <span className="accent gradtext">accounting problem disguised as arithmetic.</span>
@@ -49,15 +50,12 @@ export default function Engineering() {
                 </Link>
               </div>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <Stat value="184,207" label="Transactions in a cycle" />
-              <Stat value="42" label="Concurrent live schemes" />
-              <Stat value="6" label="Hierarchy tiers, effective-dated" />
-              <Stat value="8" label="Languages, with RTL" />
+            <div>
+              <EngineHeroSimulator />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* -------------------------------------------------- the principles --- */}
       <section className="section">

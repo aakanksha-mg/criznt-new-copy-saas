@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { Breadcrumbs, Cta } from '@/components/ui';
+import { Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { cases, caseSectors, casesProvenance } from '@/data/cases';
 
@@ -15,7 +15,7 @@ export default function CaseStudies() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Case Studies', path: '/case-studies' }]} />
           <div className="pagehero__grid">
@@ -48,7 +48,7 @@ export default function CaseStudies() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

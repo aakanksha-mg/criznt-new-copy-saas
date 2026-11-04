@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
 import { TenDaySprintSimulator } from '@/components/implementation/TenDaySprintSimulator';
@@ -18,12 +18,12 @@ export default function Implementation() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Implementation', path: '/implementation' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Implementation</span>
+              <span className="eyebrow">Implementation · 10-Day Go-Live Flight Controller</span>
               <h1 className="pagehero__title">
                 Ten days.{' '}
                 <span className="accent gradtext">Here is what is in them.</span>
@@ -45,30 +45,30 @@ export default function Implementation() {
                 </Link>
               </div>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <Stat value="10 days" label="Typical go-live" />
-              <Stat value="5" label="Phases" />
-              <Stat value="1" label="Closed cycle reconciled first" />
-              <Stat value="99.5%" label="Managed SLA, if you take it" />
+            <div>
+              <TenDaySprintSimulator />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <TenDaySprintSimulator />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead
-              eyebrow="The schedule"
-              title={
-                <>
-                  Five phases. <span className="accent">Each one with your half of it stated.</span>
-                </>
-              }
-              lead="Every implementation that runs long runs long on the client side, and almost always because nobody said at the start what would be needed. So each phase below names what we do and what we need from you, separately."
-            />
+          <div className="statgrid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: 'var(--space-6)' }}>
+            <Stat value="10 days" label="Typical go-live" />
+            <Stat value="5" label="Phases" />
+            <Stat value="1" label="Closed cycle reconciled first" />
+            <Stat value="99.5%" label="Managed SLA, if you take it" />
           </div>
+          <SectionHead
+            eyebrow="The schedule"
+            title={
+              <>
+                Five phases. <span className="accent">Each one with your half of it stated.</span>
+              </>
+            }
+            lead="Every implementation that runs long runs long on the client side, and almost always because nobody said at the start what would be needed. So each phase below names what we do and what we need from you, separately."
+          />
           <Stagger className="grid grid--2">
             {phases.map((p) => (
               <article className="card card--hover card--pad-lg spot" key={p.n} id={`phase-${p.n}`}>

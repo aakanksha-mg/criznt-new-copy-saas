@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { ClaimVerificationSuite } from '@/components/proof/ClaimVerificationSuite';
 import { proofs, theHonestBit, caseStudyProof } from '@/data/proof';
@@ -10,12 +10,12 @@ import { frameworks, servedRegions } from '@/data/compliance';
 export default function Proof() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Proof', path: '/proof' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Proof</span>
+              <span className="eyebrow">Proof &amp; Verification Suite</span>
               <h1 className="pagehero__title">
                 Seven ways to check this site{' '}
                 <span className="accent gradtext">before you believe it.</span>
@@ -26,20 +26,22 @@ export default function Proof() {
                 — four of them without contacting us at all.
               </p>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <Stat value="99.5%" label="Contracted managed SLA" />
-              <Stat value="6" label="Regions served" />
-              <Stat value="3" label="Framework sets pre-built" still />
-              <Stat value="6" label="Published case studies" still />
+            <div>
+              <ClaimVerificationSuite />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
-      {/* ---------------------------------------------- benchmark test runner ---- */}
+      {/* ---------------------------------------------- stats summary ---- */}
       <section className="section section--tight">
         <div className="container">
-          <ClaimVerificationSuite />
+          <div className="statgrid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+            <Stat value="99.5%" label="Contracted managed SLA" />
+            <Stat value="6" label="Regions served" />
+            <Stat value="3" label="Framework sets pre-built" still />
+            <Stat value="6" label="Published case studies" still />
+          </div>
         </div>
       </section>
 

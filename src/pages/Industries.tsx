@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Quote } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Quote } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { industries } from '@/data/industries';
 
 export default function Industries() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Industries', path: '/industries' }]} />
           <div className="pagehero__grid">
@@ -24,7 +24,7 @@ export default function Industries() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

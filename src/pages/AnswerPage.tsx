@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { Breadcrumbs, Cta, SectionHead } from '@/components/ui';
+import { Breadcrumbs, PageHero, Cta, SectionHead } from '@/components/ui';
 import { answerBySlug, answers } from '@/data/answers';
 import NotFound from './NotFound';
 
@@ -18,7 +18,7 @@ export default function AnswerPage() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container container--narrow">
           <Breadcrumbs
             crumbs={[
@@ -31,7 +31,7 @@ export default function AnswerPage() {
           </span>
           <h1 className="pagehero__title">{a.q}</h1>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container container--narrow">

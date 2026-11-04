@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Breadcrumbs } from '@/components/ui';
+import { Breadcrumbs, PageHero } from '@/components/ui';
 import { Markdown } from '@/components/Markdown';
 import { site } from '@/lib/site';
 
@@ -93,7 +93,7 @@ export default function Legal({ kind }: { kind: 'privacy' | 'terms' }) {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container container--narrow">
           <Breadcrumbs crumbs={[{ name: title, path: isPrivacy ? '/privacy' : '/terms' }]} />
           <span className="eyebrow">Legal</span>
@@ -102,7 +102,7 @@ export default function Legal({ kind }: { kind: 'privacy' | 'terms' }) {
             Effective {EFFECTIVE} · {site.legalName}
           </p>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container container--narrow">

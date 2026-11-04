@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, Quote, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat, Quote, CheckList } from '@/components/ui';
 import { cases, caseBySlug, casesProvenance } from '@/data/cases';
 import { industryBySlug } from '@/data/industries';
 import NotFound from './NotFound';
@@ -19,7 +19,7 @@ export default function CaseStudyPage() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -47,7 +47,7 @@ export default function CaseStudyPage() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
 import { PricingScopeModeler } from '@/components/pricing/PricingScopeModeler';
@@ -18,12 +18,12 @@ export default function Pricing() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Pricing', path: '/pricing' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Pricing</span>
+              <span className="eyebrow">Pricing &amp; Commercial Scope</span>
               <h1 className="pagehero__title">
                 No price list.{' '}
                 <span className="accent gradtext">Here is everything else.</span>
@@ -34,21 +34,21 @@ export default function Pricing() {
                 learned something about us. So here is the commercial model, what moves it, what is
                 included, and — the part usually left out — what we never charge for.
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="eyebrow eyebrow--muted" style={{ fontSize: '0.72rem' }}>How long a number takes</span>
+                <p className="card__body" style={{ margin: 'var(--space-1) 0 var(--space-3)', fontSize: '0.84rem' }}>{faqNote}</p>
+                <Link to="/contact" className="btn btn--accent btn--sm">
+                  Start the scoping call
+                  <Icon name="arrow" size={13} className="btn__arrow" />
+                </Link>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-3)' }}>
-                <Icon name="clock" />
-              </span>
-              <h2 style={{ fontSize: '1rem', marginTop: 0 }}>How long a number takes</h2>
-              <p className="card__body">{faqNote}</p>
-              <Link to="/contact" className="btn btn--accent btn--sm" style={{ marginTop: 'var(--space-3)' }}>
-                Start the scoping call
-                <Icon name="arrow" size={13} className="btn__arrow" />
-              </Link>
+            <div>
+              <PricingScopeModeler />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
@@ -76,12 +76,6 @@ export default function Pricing() {
               </article>
             ))}
           </Stagger>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <PricingScopeModeler />
         </div>
       </section>
 

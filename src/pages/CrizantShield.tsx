@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, CheckList, Stat } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList, Stat } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { Faq } from '@/components/Faq';
 import { ShieldHeroSimulator } from '@/components/home/ShieldHeroSimulator';
@@ -19,7 +19,7 @@ const shield = productBySlug('crizant-shield')!;
 export default function CrizantShield() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -29,7 +29,7 @@ export default function CrizantShield() {
           />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Crizant Shield</span>
+              <span className="eyebrow">Crizant Shield · Fraud Risk Management</span>
               <h1 className="pagehero__title">
                 Fraud has four doors.{' '}
                 <span className="accent gradtext">Most systems watch one.</span>
@@ -37,15 +37,22 @@ export default function CrizantShield() {
               <p className="lead" style={{ marginTop: 'var(--space-4)' }}>
                 {shield.promise}
               </p>
+              <div className="hero__actions" style={{ marginTop: 'var(--space-5)' }}>
+                <Link to="/contact" className="btn btn--accent">
+                  Book a Shield demo
+                  <Icon name="arrow" size={15} className="btn__arrow" />
+                </Link>
+                <Link to="/products" className="btn btn--ghost">
+                  All three products
+                </Link>
+              </div>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              {shieldScope.map((s) => (
-                <Stat key={s.label} value={s.value} label={s.label} note={s.note} />
-              ))}
+            <div>
+              <ShieldHeroSimulator />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
@@ -76,7 +83,11 @@ export default function CrizantShield() {
                 </p>
               </div>
             </div>
-            <ShieldHeroSimulator />
+            <div className="statgrid" style={{ gridTemplateColumns: '1fr' }}>
+              {shieldScope.map((s) => (
+                <Stat key={s.label} value={s.value} label={s.label} note={s.note} />
+              ))}
+            </div>
           </div>
         </div>
       </section>

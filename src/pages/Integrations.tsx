@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
 import { IntegrationApiPlayground } from '@/components/integrations/IntegrationApiPlayground';
@@ -14,12 +14,12 @@ export default function Integrations() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Integrations', path: '/integrations' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Integrations</span>
+              <span className="eyebrow">Enterprise Integrations &amp; API Ingress</span>
               <h1 className="pagehero__title">
                 Two ways in.{' '}
                 <span className="accent gradtext">Both of them validated on arrival.</span>
@@ -31,32 +31,31 @@ export default function Integrations() {
                 and arrival validation on both — plus the field mapping for the systems these
                 industries actually run.
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-2)' }}>
+                  <Icon name="plug" />
+                </span>
+                <h2 style={{ fontSize: '0.95rem', margin: 'var(--space-1) 0' }}>The integration that matters most</h2>
+                <p className="card__body" style={{ fontSize: '0.82rem', margin: 0 }}>
+                  It is not the one with a logo. It is the transaction feed that decides the payout —
+                  because a file that arrives 4% short does not look like an error, it looks like a slow month.
+                </p>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-3)' }}>
-                <Icon name="plug" />
-              </span>
-              <h2 style={{ fontSize: '1rem', marginTop: 0 }}>The integration that matters most</h2>
-              <p className="card__body">
-                It is not the one with a logo. It is the transaction feed that decides the payout —
-                because a file that arrives 4% short does not look like an error, it looks like a
-                slow month.
-              </p>
+            <div>
+              <IntegrationApiPlayground />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <IntegrationApiPlayground />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead
-              eyebrow="How data gets in"
-              title="Four things that are true of every feed"
-              lead="These apply whether the source is a documented REST API or a fixed-width file dropped on an SFTP server at 02:00 by a system nobody still supports."
-            />
-          </div>
+          <SectionHead
+            eyebrow="How data gets in"
+            title="Four things that are true of every feed"
+            lead="These apply whether the source is a documented REST API or a fixed-width file dropped on an SFTP server at 02:00 by a system nobody still supports."
+          />
           <Stagger className="grid grid--2">
             {ingestion.map((i) => (
               <div className="card card--hover card--pad-lg spot" key={i.title}>

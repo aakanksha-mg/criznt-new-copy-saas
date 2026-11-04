@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { ComparisonDiffMatrix } from '@/components/compare/ComparisonDiffMatrix';
 import { comparisons, comparisonBySlug } from '@/data/compare';
 import NotFound from './NotFound';
@@ -14,7 +14,7 @@ export default function ComparePage() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -24,32 +24,33 @@ export default function ComparePage() {
           />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Comparison</span>
+              <span className="eyebrow">Comparison · Crizant One vs. {c.otherLabel}</span>
               <h1 className="pagehero__title">
                 {c.h1} <span className="accent gradtext">{c.accentH1}</span>
               </h1>
               <p className="lead" style={{ marginTop: 'var(--space-4)' }}>
                 {c.deck}
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-2)' }}>
+                  <Icon name="scale" />
+                </span>
+                <h2 style={{ fontSize: '0.95rem', margin: 'var(--space-1) 0' }}>How to settle this properly</h2>
+                <p className="card__body" style={{ fontSize: '0.82rem', margin: '0 0 var(--space-3)' }}>
+                  Compute one of your already-closed cycles on both and reconcile line by line.
+                </p>
+                <Link to="/contact" className="btn btn--accent btn--sm">
+                  Arrange a parallel run
+                  <Icon name="arrow" size={13} className="btn__arrow" />
+                </Link>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-3)' }}>
-                <Icon name="scale" />
-              </span>
-              <h2 style={{ fontSize: '1rem', marginTop: 0 }}>How to settle this properly</h2>
-              <p className="card__body">
-                Compute one of your already-closed cycles on both and reconcile line by line. It is
-                the only comparison that uses your own numbers, and it is how every Crizant
-                engagement starts.
-              </p>
-              <Link to="/contact" className="btn btn--accent btn--sm" style={{ marginTop: 'var(--space-3)' }}>
-                Arrange a parallel run
-                <Icon name="arrow" size={13} className="btn__arrow" />
-              </Link>
+            <div>
+              <ComparisonDiffMatrix currentSlug={c.slug} />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container container--narrow">
@@ -59,10 +60,7 @@ export default function ComparePage() {
 
       <section className="section section--tight section--sunken">
         <div className="container">
-          <ComparisonDiffMatrix currentSlug={c.slug} />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead eyebrow="Side by side" title={`Crizant One against ${c.otherLabel.toLowerCase()}`} />
-          </div>
+          <SectionHead eyebrow="Side by side" title={`Crizant One against ${c.otherLabel.toLowerCase()}`} />
           <div className="tablewrap">
             <table className="data">
               <caption>

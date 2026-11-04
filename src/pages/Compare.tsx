@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { ComparisonDiffMatrix } from '@/components/compare/ComparisonDiffMatrix';
 import { comparisons } from '@/data/compare';
@@ -8,12 +8,12 @@ import { comparisons } from '@/data/compare';
 export default function Compare() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Compare', path: '/compare' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Compare</span>
+              <span className="eyebrow">Architectural Comparison</span>
               <h1 className="pagehero__title">
                 Three comparisons,{' '}
                 <span className="accent gradtext">each one conceding something.</span>
@@ -23,31 +23,30 @@ export default function Compare() {
                 these names what the other option genuinely does better, because in a real
                 evaluation you will find that out anyway — and it is better that you read it here.
               </p>
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-2)' }}>
+                  <Icon name="scale" />
+                </span>
+                <h2 style={{ fontSize: '0.95rem', margin: 'var(--space-1) 0' }}>The comparison that decides it</h2>
+                <p className="card__body" style={{ fontSize: '0.82rem', margin: 0 }}>
+                  Compute one of your already-closed cycles on both and reconcile line by line — it is the only version that uses your own numbers.
+                </p>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="iconchip iconchip--accent" style={{ marginBottom: 'var(--space-3)' }}>
-                <Icon name="scale" />
-              </span>
-              <h2 style={{ fontSize: '1rem', marginTop: 0 }}>The comparison that decides it</h2>
-              <p className="card__body">
-                None of these three. Compute one of your already-closed cycles on both and reconcile
-                line by line — it is the only version that uses your own numbers.
-              </p>
+            <div>
+              <ComparisonDiffMatrix />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <ComparisonDiffMatrix />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead
-              eyebrow="Direct Competitor Analyses"
-              title="Three specific alternative paths"
-              lead="Select an architectural comparison to examine code, data model, and operational trade-offs."
-            />
-          </div>
+          <SectionHead
+            eyebrow="Direct Competitor Analyses"
+            title="Three specific alternative paths"
+            lead="Select an architectural comparison to examine code, data model, and operational trade-offs."
+          />
           <Stagger className="grid grid--3">
             {comparisons.map((c) => (
               <Link key={c.slug} to={`/compare/${c.slug}`} className="card card--hover card--pad-lg spot">

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { Icon, type IconName } from './Icon';
 import { Counter } from './motion';
+import { KineticHeroCanvas } from '@/components/home/KineticHeroCanvas';
 import type { Crumb } from '@/lib/seo';
 
 /* ------------------------------------------------------------ headings ---- */
@@ -51,6 +52,23 @@ export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
         ))}
       </ol>
     </nav>
+  );
+}
+
+export function PageHero({
+  children,
+  className = '',
+  hasConsole = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  hasConsole?: boolean;
+}) {
+  return (
+    <section className={`pagehero ${hasConsole ? 'pagehero--console' : ''} ${className}`.trim()}>
+      <KineticHeroCanvas />
+      {children}
+    </section>
   );
 }
 

@@ -1,32 +1,38 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
+import { PageHero } from '@/components/ui';
 import { modules } from '@/data/platform';
 import { industries } from '@/data/industries';
 
 export default function NotFound() {
   return (
-    <section className="section">
-      <div className="container">
-        <div className="notfound">
-          <div className="notfound__code" aria-hidden="true">
-            404
-          </div>
-          <h1 style={{ marginTop: 'var(--space-4)' }}>That page is not here</h1>
-          <p className="lead" style={{ marginInline: 'auto' }}>
-            The link may be old, or the address may have a typo in it. Everything else is below.
-          </p>
-          <div className="cluster" style={{ justifyContent: 'center', marginTop: 'var(--space-5)' }}>
-            <Link to="/" className="btn btn--accent">
-              Back to the homepage
-              <Icon name="arrow" size={15} className="btn__arrow" />
-            </Link>
-            <Link to="/answers" className="btn btn--ghost">
-              Browse the answers
-            </Link>
+    <>
+      <PageHero>
+        <div className="container">
+          <div className="notfound">
+            <div className="notfound__code" aria-hidden="true">
+              404
+            </div>
+            <h1 style={{ marginTop: 'var(--space-4)' }}>That page is not here</h1>
+            <p className="lead" style={{ marginInline: 'auto' }}>
+              The link may be old, or the address may have a typo in it. Everything else is below.
+            </p>
+            <div className="cluster" style={{ justifyContent: 'center', marginTop: 'var(--space-5)' }}>
+              <Link to="/" className="btn btn--accent">
+                Back to the homepage
+                <Icon name="arrow" size={15} className="btn__arrow" />
+              </Link>
+              <Link to="/answers" className="btn btn--ghost">
+                Browse the answers
+              </Link>
+            </div>
           </div>
         </div>
+      </PageHero>
 
-        <div className="grid grid--2" style={{ marginTop: 'var(--space-6)', textAlign: 'left' }}>
+      <section className="section">
+        <div className="container">
+          <div className="grid grid--2" style={{ marginTop: 'var(--space-4)', textAlign: 'left' }}>
           <div className="card card--pad-lg">
             <span className="eyebrow">Platform</span>
             <ul className="checklist">
@@ -66,5 +72,6 @@ export default function NotFound() {
         </div>
       </div>
     </section>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta } from '@/components/ui';
 import { sortedArticles } from '@/data/insights';
 import { answers } from '@/data/answers';
 
@@ -17,7 +17,7 @@ export default function Resources() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Insights', path: '/resources' }]} />
           <div className="pagehero__grid">
@@ -34,7 +34,7 @@ export default function Resources() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">

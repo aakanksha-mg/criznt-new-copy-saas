@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, FeatureCard, Panel, Cta, CheckList, Stat } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, FeatureCard, Panel, Cta, CheckList, Stat } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { ArchitectureTopology } from '@/components/platform/ArchitectureTopology';
 import { modules } from '@/data/platform';
@@ -16,12 +16,12 @@ export default function Platform() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={page.breadcrumbs!} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">The platform</span>
+              <span className="eyebrow">The Platform Architecture</span>
               <h1 className="pagehero__title">
                 One operating system for everything you pay a channel to do
               </h1>
@@ -31,19 +31,30 @@ export default function Platform() {
                 the payout file, the number in the ledger and the number in the seller&rsquo;s hand
                 come from the same computation.
               </p>
+              <div className="hero__actions" style={{ marginTop: 'var(--space-5)' }}>
+                <Link to="/contact" className="btn btn--accent">
+                  Book architectural walkthrough
+                  <Icon name="arrow" size={15} className="btn__arrow" />
+                </Link>
+                <Link to="/engineering" className="btn btn--ghost">
+                  Engineering principles
+                </Link>
+              </div>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              {platformMetrics.slice(0, 4).map((m) => (
-                <Stat key={m.label} value={m.value} label={m.label} />
-              ))}
+            <div>
+              <ArchitectureTopology />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
-          <ArchitectureTopology />
+          <div className="statgrid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: 'var(--space-6)' }}>
+            {platformMetrics.slice(0, 4).map((m) => (
+              <Stat key={m.label} value={m.value} label={m.label} />
+            ))}
+          </div>
 
           <SectionHead
             eyebrow="Six modules"

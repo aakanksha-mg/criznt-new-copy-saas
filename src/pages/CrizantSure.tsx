@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, CheckList } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { Faq } from '@/components/Faq';
 import { SureHeroSimulator } from '@/components/home/SureHeroSimulator';
@@ -17,7 +17,7 @@ const sure = productBySlug('crizant-sure')!;
 export default function CrizantSure() {
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -27,7 +27,7 @@ export default function CrizantSure() {
           />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Crizant Sure</span>
+              <span className="eyebrow">Crizant Sure · Broking OS</span>
               <h1 className="pagehero__title">
                 The whole broking business,{' '}
                 <span className="accent gradtext">in one workspace.</span>
@@ -35,21 +35,22 @@ export default function CrizantSure() {
               <p className="lead" style={{ marginTop: 'var(--space-4)' }}>
                 {sure.promise}
               </p>
+              <div className="hero__actions" style={{ marginTop: 'var(--space-5)' }}>
+                <Link to="/contact" className="btn btn--accent">
+                  Book a Sure demo
+                  <Icon name="arrow" size={15} className="btn__arrow" />
+                </Link>
+                <Link to="/products" className="btn btn--ghost">
+                  All three products
+                </Link>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="eyebrow eyebrow--muted">Who it is for</span>
-              <p className="card__body">{sure.audience}</p>
-              <CheckList
-                items={[
-                  'Insurance, mutual funds and lending on one customer record',
-                  'Placement, not just CRM — enquiry to multi-insurer quote',
-                  'Run-rate against every principal, separately',
-                ]}
-              />
+            <div>
+              <SureHeroSimulator />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
@@ -78,7 +79,17 @@ export default function CrizantSure() {
                 </p>
               </div>
             </div>
-            <SureHeroSimulator />
+            <div className="card card--pad-lg">
+              <span className="eyebrow eyebrow--muted">Who it is for</span>
+              <p className="card__body">{sure.audience}</p>
+              <CheckList
+                items={[
+                  'Insurance, mutual funds and lending on one customer record',
+                  'Placement, not just CRM — enquiry to multi-insurer quote',
+                  'Run-rate against every principal, separately',
+                ]}
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { SlaRunbookSimulator } from '@/components/managed/SlaRunbookSimulator';
 import { managedSteps, inHouseVsManaged } from '@/data/managed';
@@ -19,12 +19,12 @@ export default function ManagedServices() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs crumbs={[{ name: 'Managed Services', path: '/managed-services' }]} />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">Managed services</span>
+              <span className="eyebrow">Managed Services · Commission Operations</span>
               <h1 className="pagehero__title">
                 We run it. <span className="accent">You own it.</span>
               </h1>
@@ -33,14 +33,23 @@ export default function ManagedServices() {
                 awkwardly together in a SaaS pitch, so it is worth explaining why they belong
                 together.
               </p>
+              <div className="cluster" style={{ gap: 'var(--space-4)', marginTop: 'var(--space-4)' }}>
+                <div>
+                  <strong style={{ fontSize: '1.25rem', color: 'var(--cyan)', fontFamily: 'var(--font-mono)' }}>99.5%</strong>
+                  <span className="fine" style={{ display: 'block' }}>Contracted SLA</span>
+                </div>
+                <div>
+                  <strong style={{ fontSize: '1.25rem', color: 'var(--white)', fontFamily: 'var(--font-mono)' }}>10 days</strong>
+                  <span className="fine" style={{ display: 'block' }}>Typical go-live</span>
+                </div>
+              </div>
             </div>
-            <div className="statgrid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <Stat value="99.5%" label="Contracted SLA" />
-              <Stat value="10 days" label="Typical go-live" />
+            <div>
+              <SlaRunbookSimulator />
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container container--narrow">
@@ -75,10 +84,7 @@ export default function ManagedServices() {
 
       <section className="section section--sunken">
         <div className="container">
-          <SlaRunbookSimulator />
-          <div style={{ marginTop: 'var(--space-6)' }}>
-            <SectionHead eyebrow="What we take on" title="Five things, on an SLA" />
-          </div>
+          <SectionHead eyebrow="What we take on" title="Five things, on an SLA" />
           <ol className="steps" style={{ maxWidth: '80ch' }}>
             {managedSteps.map((s) => (
               <li key={s.title}>

@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { SectionHead, Breadcrumbs, Panel, Cta, CheckList, FeatureList } from '@/components/ui';
+import { SectionHead, Breadcrumbs, PageHero, Panel, Cta, CheckList, FeatureList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { MobilePwaSimulator } from '@/components/platform/MobilePwaSimulator';
 import {
@@ -22,7 +22,7 @@ export default function PlatformModule() {
 
   return (
     <>
-      <section className="pagehero">
+      <PageHero hasConsole>
         <div className="container">
           <Breadcrumbs
             crumbs={[
@@ -32,41 +32,44 @@ export default function PlatformModule() {
           />
           <div className="pagehero__grid">
             <div>
-              <span className="eyebrow">{m.eyebrow}</span>
+              <span className="eyebrow">{m.eyebrow} · Platform Engine</span>
               <h1 className="pagehero__title">{m.name}</h1>
               <p className="lead" style={{ marginTop: 'var(--space-4)' }}>
                 {m.promise}
               </p>
-            </div>
-            <div className="card">
-              <div className="cluster" style={{ gap: 'var(--space-3)' }}>
-                <span
-                  className="iconchip iconchip--accent"
-                  style={{ width: 52, height: 52, borderRadius: 'var(--radius-lg)' }}
-                >
-                  <Icon name={m.icon} size={26} />
-                </span>
-                <div>
-                  <span className="eyebrow eyebrow--muted" style={{ marginBottom: 0 }}>
-                    Part of Crizant One
+              <div className="card card--pad-md" style={{ marginTop: 'var(--space-4)', background: 'var(--surface-glass)' }}>
+                <div className="cluster" style={{ gap: 'var(--space-3)' }}>
+                  <span
+                    className="iconchip iconchip--accent"
+                    style={{ width: 44, height: 44, borderRadius: 'var(--radius-md)' }}
+                  >
+                    <Icon name={m.icon} size={22} />
                   </span>
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}>
-                    {m.eyebrow}
+                  <div>
+                    <span className="eyebrow eyebrow--muted" style={{ marginBottom: 0, fontSize: '0.72rem' }}>
+                      Part of Crizant One
+                    </span>
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.95rem' }}>
+                      {m.eyebrow}
+                    </div>
                   </div>
                 </div>
               </div>
-              <ul className="checklist" style={{ marginTop: 'var(--space-4)' }}>
-                {m.outcomes.slice(0, 2).map((o) => (
-                  <li key={o}>
-                    <Icon name="check" />
-                    <span>{o}</span>
-                  </li>
-                ))}
-              </ul>
+            </div>
+            <div>
+              {m.slug === 'last-mile' && <MobilePwaSimulator />}
+              {m.slug === 'scheme-builder' && <SchemeDslSandbox />}
+              {m.slug === 'ai-intelligence' && <PreCloseAnomalySandbox />}
+              {m.slug === 'reconciliation' && <ReconciliationLedgerSandbox />}
+              {m.slug === 'distribution-management' && <ChannelHierarchySandbox />}
+              {m.slug === 'compliance-audit' && <BitemporalAuditScrubber />}
+              {!['last-mile', 'scheme-builder', 'ai-intelligence', 'reconciliation', 'distribution-management', 'compliance-audit'].includes(m.slug) && (
+                <Panel {...m.panel} />
+              )}
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="section">
         <div className="container">
@@ -78,15 +81,17 @@ export default function PlatformModule() {
               <span className="eyebrow">What Crizant One does</span>
               <p style={{ color: 'var(--white)', fontSize: 'var(--fs-lead)' }}>{m.fix}</p>
             </div>
-            {m.slug === 'last-mile' && <MobilePwaSimulator />}
-            {m.slug === 'scheme-builder' && <SchemeDslSandbox />}
-            {m.slug === 'ai-intelligence' && <PreCloseAnomalySandbox />}
-            {m.slug === 'reconciliation' && <ReconciliationLedgerSandbox />}
-            {m.slug === 'distribution-management' && <ChannelHierarchySandbox />}
-            {m.slug === 'compliance-audit' && <BitemporalAuditScrubber />}
-            {!['last-mile', 'scheme-builder', 'ai-intelligence', 'reconciliation', 'distribution-management', 'compliance-audit'].includes(m.slug) && (
-              <Panel {...m.panel} />
-            )}
+            <div className="card card--pad-lg">
+              <span className="eyebrow">Execution Guarantees</span>
+              <ul className="checklist" style={{ marginTop: 'var(--space-3)' }}>
+                {m.outcomes.map((o) => (
+                  <li key={o}>
+                    <Icon name="check" />
+                    <span>{o}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
