@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
+import { PricingScopeModeler } from '@/components/pricing/PricingScopeModeler';
 import { models, drivers, notCharged, faqNote } from '@/data/pricing';
 import { answers } from '@/data/answers';
 
@@ -75,6 +76,12 @@ export default function Pricing() {
               </article>
             ))}
           </Stagger>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <PricingScopeModeler />
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, CheckList, FeatureList } from '@/components/ui';
+import { SecurityControlConsole } from '@/components/security/SecurityControlConsole';
 import { site } from '@/lib/site';
 
 export default function Security() {
@@ -25,7 +26,10 @@ export default function Security() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Controls" title="How the platform is built" />
+          <SecurityControlConsole />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead eyebrow="Controls" title="How the platform is built" />
+          </div>
           <FeatureList
             accentFirst
             items={[

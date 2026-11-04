@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, Stat } from '@/components/ui';
 import { Stagger } from '@/components/motion';
+import { ClaimVerificationSuite } from '@/components/proof/ClaimVerificationSuite';
 import { proofs, theHonestBit, caseStudyProof } from '@/data/proof';
 import { cases, casesProvenance } from '@/data/cases';
 import { frameworks, servedRegions } from '@/data/compliance';
@@ -32,6 +33,13 @@ export default function Proof() {
               <Stat value="6" label="Published case studies" still />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------- benchmark test runner ---- */}
+      <section className="section section--tight">
+        <div className="container">
+          <ClaimVerificationSuite />
         </div>
       </section>
 

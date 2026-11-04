@@ -9,6 +9,7 @@ import {
   CheckList,
 } from '@/components/ui';
 import { Faq } from '@/components/Faq';
+import { IndustryReversalSandbox } from '@/components/industry/IndustryReversalSandbox';
 import { industryBySlug, industries } from '@/data/industries';
 import { caseForIndustry, caseSectors, cases } from '@/data/cases';
 import { modules } from '@/data/platform';
@@ -77,15 +78,18 @@ export default function IndustryPage() {
 
       <section className="section">
         <div className="container">
-          <div className="split split--wide-left">
+          <div className="split split--wide-left" style={{ alignItems: 'start' }}>
             <div>
               <SectionHead eyebrow="The reality" title="What is happening today" />
               <p className="lead">{ind.reality}</p>
               <hr className="hairrule" style={{ margin: 'var(--space-5) 0' }} />
               <span className="eyebrow">What Crizant One does</span>
               <p style={{ color: 'var(--white)', fontSize: 'var(--fs-lead)' }}>{ind.fix}</p>
+              <div style={{ marginTop: 'var(--space-5)' }}>
+                <Quote text={ind.quote} who={ind.quoteWho} />
+              </div>
             </div>
-            <Quote text={ind.quote} who={ind.quoteWho} />
+            <IndustryReversalSandbox industrySlug={ind.slug} />
           </div>
         </div>
       </section>

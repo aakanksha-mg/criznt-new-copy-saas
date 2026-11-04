@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
+import { TenDaySprintSimulator } from '@/components/implementation/TenDaySprintSimulator';
 import { phases, whenItTakesLonger } from '@/data/implementation';
 import { answers } from '@/data/answers';
 
@@ -56,15 +57,18 @@ export default function Implementation() {
 
       <section className="section">
         <div className="container">
-          <SectionHead
-            eyebrow="The schedule"
-            title={
-              <>
-                Five phases. <span className="accent">Each one with your half of it stated.</span>
-              </>
-            }
-            lead="Every implementation that runs long runs long on the client side, and almost always because nobody said at the start what would be needed. So each phase below names what we do and what we need from you, separately."
-          />
+          <TenDaySprintSimulator />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead
+              eyebrow="The schedule"
+              title={
+                <>
+                  Five phases. <span className="accent">Each one with your half of it stated.</span>
+                </>
+              }
+              lead="Every implementation that runs long runs long on the client side, and almost always because nobody said at the start what would be needed. So each phase below names what we do and what we need from you, separately."
+            />
+          </div>
           <Stagger className="grid grid--2">
             {phases.map((p) => (
               <article className="card card--hover card--pad-lg spot" key={p.n} id={`phase-${p.n}`}>

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
 import { Stagger } from '@/components/motion';
+import { ValueChainTopology } from '@/components/products/ValueChainTopology';
 import { products, productEvidence } from '@/data/products';
 
 export default function Products() {
@@ -40,11 +41,14 @@ export default function Products() {
 
       <section className="section">
         <div className="container">
-          <SectionHead
-            eyebrow="The family"
-            title="Who each one is for"
-            lead="The quickest way to tell them apart is to ask who signs the invoice."
-          />
+          <ValueChainTopology />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead
+              eyebrow="The family"
+              title="Who each one is for"
+              lead="The quickest way to tell them apart is to ask who signs the invoice."
+            />
+          </div>
           <Stagger className="grid grid--3">
             {products.map((p) => (
               <Link key={p.slug} to={p.to} className="card card--hover card--pad-lg spot">

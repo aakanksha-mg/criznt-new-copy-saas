@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { Stagger } from '@/components/motion';
+import { IntegrationApiPlayground } from '@/components/integrations/IntegrationApiPlayground';
 import { integrationGroups, ingestion } from '@/data/integrations';
 import { answers } from '@/data/answers';
 
@@ -48,11 +49,14 @@ export default function Integrations() {
 
       <section className="section">
         <div className="container">
-          <SectionHead
-            eyebrow="How data gets in"
-            title="Four things that are true of every feed"
-            lead="These apply whether the source is a documented REST API or a fixed-width file dropped on an SFTP server at 02:00 by a system nobody still supports."
-          />
+          <IntegrationApiPlayground />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead
+              eyebrow="How data gets in"
+              title="Four things that are true of every feed"
+              lead="These apply whether the source is a documented REST API or a fixed-width file dropped on an SFTP server at 02:00 by a system nobody still supports."
+            />
+          </div>
           <Stagger className="grid grid--2">
             {ingestion.map((i) => (
               <div className="card card--hover card--pad-lg spot" key={i.title}>

@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, CheckList } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { Faq } from '@/components/Faq';
+import { SureHeroSimulator } from '@/components/home/SureHeroSimulator';
 import {
   productBySlug,
   sureAreas,
@@ -52,7 +53,7 @@ export default function CrizantSure() {
 
       <section className="section">
         <div className="container">
-          <div className="split split--wide-left">
+          <div className="split split--wide-left" style={{ alignItems: 'start' }}>
             <div>
               <SectionHead eyebrow="The reality" title="What a composite house actually runs on" />
               <p className="lead">
@@ -67,16 +68,17 @@ export default function CrizantSure() {
                 Carries the business end to end in one place — lead, placement, policy, servicing,
                 renewal, commission and books — so the position is a query, not a reconstruction.
               </p>
+              <div className="card card--pad-lg" style={{ marginTop: 'var(--space-4)' }}>
+                <span className="eyebrow eyebrow--muted" style={{ marginBottom: 4 }}>The composite problem</span>
+                <p className="card__body" style={{ margin: 0 }}>
+                  Most broking software was built for one line. A composite intermediary sells
+                  insurance, mutual funds and loans to the same person, and the moment the book
+                  spans three regulators and three payout bases, single-line software becomes three
+                  systems and a spreadsheet to join them.
+                </p>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="eyebrow eyebrow--muted">The composite problem</span>
-              <p className="card__body">
-                Most broking software was built for one line. A composite intermediary sells
-                insurance, mutual funds and loans to the same person, and the moment the book
-                spans three regulators and three payout bases, single-line software becomes three
-                systems and a spreadsheet to join them.
-              </p>
-            </div>
+            <SureHeroSimulator />
           </div>
         </div>
       </section>

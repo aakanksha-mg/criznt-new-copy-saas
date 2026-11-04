@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, CheckList, Stat } from '@/components/ui';
 import { Stagger } from '@/components/motion';
 import { Faq } from '@/components/Faq';
+import { ShieldHeroSimulator } from '@/components/home/ShieldHeroSimulator';
 import {
   productBySlug,
   fraudVectors,
@@ -48,7 +49,7 @@ export default function CrizantShield() {
 
       <section className="section">
         <div className="container">
-          <div className="split split--wide-left">
+          <div className="split split--wide-left" style={{ alignItems: 'start' }}>
             <div>
               <SectionHead eyebrow="The reality" title="Three of the four doors are internal" />
               <p className="lead">
@@ -66,21 +67,16 @@ export default function CrizantShield() {
                 before issuance where it can, and runs the committee, the control library and the
                 statutory return that turn detection into governance an auditor will accept.
               </p>
+              <div className="card card--pad-lg" style={{ marginTop: 'var(--space-4)' }}>
+                <span className="eyebrow eyebrow--muted" style={{ marginBottom: 4 }}>FRMU Architecture</span>
+                <p className="card__body" style={{ margin: 0 }}>
+                  A Fraud Monitoring / Fraud Risk Management Unit is the function an insurer is
+                  expected to run: a board-approved anti-fraud policy, a committee that meets, a
+                  control framework, and a periodic return to the regulator (Section 45 &amp; FMR-1).
+                </p>
+              </div>
             </div>
-            <div className="card card--pad-lg">
-              <span className="eyebrow eyebrow--muted">FRMU</span>
-              <p className="card__body">
-                A Fraud Monitoring / Fraud Risk Management Unit is the function an insurer is
-                expected to run: a board-approved anti-fraud policy, a committee that meets, a
-                control framework, and a periodic return to the regulator. Shield is built around
-                that shape rather than bolted to it, so the artefacts are a by-product of the work
-                instead of a quarterly scramble.
-              </p>
-              <Link to="/glossary" className="btn btn--ghost btn--sm" style={{ marginTop: 'var(--space-3)' }}>
-                The vocabulary, defined
-                <Icon name="arrow" size={13} className="btn__arrow" />
-              </Link>
-            </div>
+            <ShieldHeroSimulator />
           </div>
         </div>
       </section>

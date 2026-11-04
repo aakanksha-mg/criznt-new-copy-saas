@@ -3,6 +3,13 @@ import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Panel, Cta, CheckList, FeatureList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
 import { MobilePwaSimulator } from '@/components/platform/MobilePwaSimulator';
+import {
+  SchemeDslSandbox,
+  PreCloseAnomalySandbox,
+  ReconciliationLedgerSandbox,
+  ChannelHierarchySandbox,
+} from '@/components/platform/PlatformModuleSandboxes';
+import { BitemporalAuditScrubber } from '@/components/engineering/BitemporalAuditScrubber';
 import { moduleBySlug, modules } from '@/data/platform';
 import NotFound from './NotFound';
 
@@ -71,7 +78,15 @@ export default function PlatformModule() {
               <span className="eyebrow">What Crizant One does</span>
               <p style={{ color: 'var(--white)', fontSize: 'var(--fs-lead)' }}>{m.fix}</p>
             </div>
-            {m.slug === 'last-mile' ? <MobilePwaSimulator /> : <Panel {...m.panel} />}
+            {m.slug === 'last-mile' && <MobilePwaSimulator />}
+            {m.slug === 'scheme-builder' && <SchemeDslSandbox />}
+            {m.slug === 'ai-intelligence' && <PreCloseAnomalySandbox />}
+            {m.slug === 'reconciliation' && <ReconciliationLedgerSandbox />}
+            {m.slug === 'distribution-management' && <ChannelHierarchySandbox />}
+            {m.slug === 'compliance-audit' && <BitemporalAuditScrubber />}
+            {!['last-mile', 'scheme-builder', 'ai-intelligence', 'reconciliation', 'distribution-management', 'compliance-audit'].includes(m.slug) && (
+              <Panel {...m.panel} />
+            )}
           </div>
         </div>
       </section>
