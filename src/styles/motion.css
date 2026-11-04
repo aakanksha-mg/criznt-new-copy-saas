@@ -1,0 +1,247 @@
+/* ============================================================
+   Depth, motion and the details that read as craft.
+   Everything here degrades to a static, legible page with JS off
+   or prefers-reduced-motion on.
+   ============================================================ */
+
+/* ---------- gradient-bordered surface ----------
+   A 1px border painted with the mark gradient, done with a mask so the
+   card keeps a real transparent background behind it. */
+.edge {
+  position: relative;
+  isolation: isolate;
+}
+.edge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad-border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------- spotlight ----------
+   A soft radial highlight that follows the pointer across a card grid.
+   --mx/--my are set by useSpotlight; with no JS they stay at 50% and the
+   layer never becomes visible because opacity is driven by :hover. */
+.spot {
+  position: relative;
+  overflow: hidden;
+}
+.spot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    22rem circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 170, 255, 0.16),
+    transparent 42%
+  );
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+  pointer-events: none;
+}
+.spot:hover::after,
+.spot:focus-within::after { opacity: 1; }
+
+/* ---------- animated accent rule ---------- */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-100%);
+  animation: sweep 3.4s var(--ease) infinite;
+}
+@keyframes sweep {
+  0%, 55% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ---------- counters ---------- */
+.counter { font-variant-numeric: tabular-nums; }
+
+/* ---------- marquee ----------
+   Duplicated track so the loop is seamless; paused on hover so anyone
+   trying to read an item can. */
+.marquee {
+  overflow: hidden;
+  margin-top: var(--space-5);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  gap: var(--space-5);
+  width: max-content;
+  animation: slide 46s linear infinite;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.marquee__item::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+@keyframes slide {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- scroll progress ---------- */
+.progress {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+  background: var(--grad-electric);
+  z-index: 90;
+  pointer-events: none;
+}
+
+/* ---------- live data dot ---------- */
+.ping {
+  position: relative;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+.ping::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan);
+  animation: ping 2.1s var(--ease) infinite;
+}
+@keyframes ping {
+  0% { transform: scale(0.7); opacity: 0.9; }
+  70%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ---------- stagger ---------- */
+.js .stagger > * { opacity: 0; transform: translateY(16px); }
+.js .stagger.is-in > * {
+  animation: rise 640ms var(--ease-spring) both;
+}
+.js .stagger.is-in > *:nth-child(1) { animation-delay: 0ms; }
+.js .stagger.is-in > *:nth-child(2) { animation-delay: 70ms; }
+.js .stagger.is-in > *:nth-child(3) { animation-delay: 140ms; }
+.js .stagger.is-in > *:nth-child(4) { animation-delay: 210ms; }
+.js .stagger.is-in > *:nth-child(5) { animation-delay: 280ms; }
+.js .stagger.is-in > *:nth-child(6) { animation-delay: 350ms; }
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- gradient display text ---------- */
+.gradtext {
+  background: var(--grad-text);
+  background-size: 180% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: drift 11s var(--ease) infinite alternate;
+}
+@keyframes drift {
+  to { background-position: 100% 0; }
+}
+
+/* ---------- elevated button glow ---------- */
+.btn--accent { box-shadow: 0 8px 30px -10px rgba(0, 204, 255, 0.55); }
+.btn--accent:hover { box-shadow: 0 14px 40px -10px rgba(0, 204, 255, 0.75); }
+.btn--primary { box-shadow: var(--glow-electric); }
+
+/* ---------- node diagram ---------- */
+.flowline {
+  stroke-dasharray: 5 7;
+  animation: flow 1.5s linear infinite;
+}
+@keyframes flow {
+  to { stroke-dashoffset: -12; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after,
+  .marquee__track,
+  .ping::after,
+  .gradtext,
+  .flowline { animation: none; }
+  .js .stagger > * { opacity: 1; transform: none; }
+  .js .stagger.is-in > * { animation: none; }
+}
+
+/* ---------- the card treatment, applied once rather than per page ----------
+   Every hoverable card is a spotlight surface and carries the gradient edge.
+   SpotlightRoot sets --mx/--my on the card under the pointer; with no
+   pointer the highlight simply never becomes visible. */
+.card--hover,
+.panel,
+.cta {
+  position: relative;
+}
+.card--hover::after,
+.panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(0, 170, 255, 0.11),
+    transparent 62%
+  );
+}
+.card--hover:hover::after,
+.card--hover:focus-visible::after,
+.panel:hover::after { opacity: 1; }
+
+/* The gradient hairline on the raised surfaces. mask-composite keeps it a
+   1px border rather than a filled rectangle, which no border-image can do
+   on a rounded corner. */
+.panel::before,
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad-border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

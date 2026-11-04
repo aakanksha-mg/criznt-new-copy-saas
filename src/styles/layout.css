@@ -1,0 +1,414 @@
+/* ---------- shell ---------- */
+.app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.app > main { flex: 1; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+@media (min-width: 768px) { .container { padding-inline: var(--space-5); } }
+.container--narrow { max-width: var(--container-narrow); }
+
+.section { padding-block: var(--space-7); position: relative; }
+.section--tight { padding-block: var(--space-6); }
+.section--flush-top { padding-top: 0; }
+.section--sunken { background: var(--surface-sunken); border-block: 1px solid var(--hairline); }
+.section--raised { background: var(--surface-glass); border-block: 1px solid var(--hairline); }
+
+/* ---------- header ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 26, 49, 0.82);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--hairline);
+}
+.header__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: var(--header-h);
+}
+.header__brand { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+.header__brand:hover { color: inherit; }
+.header__wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.22rem;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  line-height: 1;
+}
+.header__sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ice-200);
+  margin-top: 3px;
+}
+.header__nav { display: none; margin-left: auto; }
+.header__actions { display: none; align-items: center; gap: var(--space-3); }
+@media (min-width: 1024px) {
+  .header__nav { display: flex; align-items: center; gap: var(--space-1); }
+  .header__actions { display: flex; }
+}
+
+.navitem { position: relative; }
+.navitem__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.navitem__link:hover,
+.navitem__link[aria-expanded='true'],
+.navitem__link.is-active { color: var(--white); background: var(--surface-glass-strong); }
+.navitem__chev { width: 11px; height: 11px; opacity: 0.6; transition: transform var(--dur) var(--ease); }
+.navitem__link[aria-expanded='true'] .navitem__chev { transform: rotate(180deg); }
+
+.navpanel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -8px;
+  width: 400px;
+  padding: var(--space-2);
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  gap: 2px;
+}
+.navpanel__link {
+  display: block;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--white);
+}
+.navpanel__link:hover { background: var(--surface-glass-strong); color: var(--white); }
+.navpanel__label { display: block; font-weight: 600; font-size: 0.925rem; }
+.navpanel__blurb { display: block; font-size: var(--fs-small); color: var(--text-dim); margin-top: 2px; line-height: 1.45; }
+
+.burger {
+  margin-left: auto;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px; height: 42px;
+  padding: 0 9px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.burger span { display: block; height: 2px; background: var(--white); border-radius: 2px; transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+.burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 1024px) { .burger { display: none; } }
+
+.mobilenav {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  z-index: 99;
+  background: var(--surface-sunken);
+  overflow-y: auto;
+  padding: var(--space-4) 0 var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+.mobilenav__group { border-bottom: 1px solid var(--hairline); padding-block: var(--space-3); }
+.mobilenav__head { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: 0; padding: var(--space-2) 0; color: var(--white); font: inherit; font-weight: 600; font-size: 1.05rem; cursor: pointer; text-align: left; }
+.mobilenav__toplink { display: block; padding: var(--space-2) 0; color: var(--white); font-weight: 600; font-size: 1.05rem; }
+.mobilenav__children { display: grid; gap: 2px; padding-top: var(--space-2); }
+.mobilenav__child { display: block; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--text-muted); font-size: 0.95rem; }
+.mobilenav__child:hover { background: var(--surface-glass); color: var(--white); }
+.mobilenav__cta { padding-top: var(--space-5); display: grid; gap: var(--space-3); }
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: 1px solid var(--hairline);
+  background: var(--surface-sunken);
+  padding-block: var(--space-7) var(--space-5);
+  margin-top: var(--space-7);
+  position: relative;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 204, 255, 0.35), transparent);
+}
+.footer__top {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .footer__top {
+    grid-template-columns: 290px 1fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+.footer__about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 32ch;
+}
+.footer__about p {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.footer__email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: color var(--dur) var(--ease);
+}
+.footer__email:hover {
+  color: var(--white);
+}
+.footer__status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 204, 255, 0.06);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  width: fit-content;
+}
+
+.footer__nav-grid {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 680px) {
+  .footer__nav-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .footer__nav-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+.footer__heading {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 0 0 var(--space-3);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.footer__links a {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  transition: all var(--dur) var(--ease);
+}
+.footer__links a:hover {
+  color: var(--white);
+  transform: translateX(2px);
+}
+
+.footer__bottom {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.footer__bottom a {
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  transition: color var(--dur) var(--ease);
+}
+.footer__bottom a:hover {
+  color: var(--cyan);
+}
+
+/* ---------- grids ---------- */
+.grid { display: grid; gap: var(--space-4); }
+.grid--2 { grid-template-columns: 1fr; }
+.grid--3 { grid-template-columns: 1fr; }
+.grid--4 { grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+.split { display: grid; gap: var(--space-5); align-items: center; }
+@media (min-width: 920px) {
+  .split { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .split--wide-left { grid-template-columns: 1.15fr 0.85fr; }
+  .split--wide-right { grid-template-columns: 0.85fr 1.15fr; }
+  .split--reverse > :first-child { order: 2; }
+}
+.stack { display: grid; gap: var(--space-3); }
+.stack--lg { gap: var(--space-4); }
+.cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+/* The logo card: the primary (dark-wordmark) lockup needs a white surface
+   under it on navy — guidelines s.04 "don't", and s.08 item 1. */
+.logocard {
+  display: inline-flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  line-height: 0;
+}
+.logocard img { width: 148px; height: auto; }
+.logocard--lg img { width: 210px; }
+@media (max-width: 420px) { .logocard img { width: 124px; } }
+
+/* ---------- brand lockup ----------
+   Dark variant: the real mark (it has alpha and is a luminous gradient, so it
+   needs no card) beside the name in Saira. Card variant: the full delivered
+   lockup on white, for light surfaces and the footer. */
+.brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+.brand:hover { color: inherit; }
+.brand__mark {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(0, 136, 255, 0.45));
+  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease-spring);
+}
+.brand:hover .brand__mark {
+  filter: drop-shadow(0 3px 16px rgba(0, 204, 255, 0.7));
+  transform: translateY(-1px);
+}
+.brand__text { display: grid; gap: 2px; }
+.brand__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.16rem;
+  line-height: 1;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.brand__sub {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: 1;
+}
+/* The subline is the first thing to go when the header gets tight: below 1200 it
+   costs about 90px that the five nav items need, and on a phone it crowds the
+   burger. In the footer, it stays proudly visible. */
+@media (max-width: 1199px) {
+  .header .brand__sub { display: none; }
+}
+
+/* ---------- two-column nav panel ----------
+   Used where a single column would run past eight rows (Platform, Resources).
+   It is right-anchored on Resources so a panel near the end of the bar cannot
+   push past the viewport edge. */
+.navitem--wide { position: static; }
+.navpanel--wide {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  /* Never wider than the bar it hangs from, so a 1024 laptop cannot push it
+     off the right edge. */
+  width: min(760px, 100%);
+  padding: var(--space-4);
+  left: 0;
+  right: auto;
+}
+.navpanel--right { left: auto; right: 0; }
+
+/* Three columns, for the Products panel. Width is still capped at 100% of
+   .header__bar — which .navitem--wide { position: static } makes the containing
+   block — so this can never reach past the viewport, whatever the max. */
+.navpanel--wide3 { grid-template-columns: 1fr 1fr 1fr; width: min(1040px, 100%); }
+/* The desktop nav itself only exists from 1024px up, so three columns apply
+   wherever this panel can be seen. The fallback is kept for the narrow edge
+   between 1024 and the panel's own comfortable minimum. */
+@media (max-width: 1060px) {
+  .navpanel--wide3 { grid-template-columns: 1fr 1fr; width: min(760px, 100%); }
+}
+.navpanel__col { display: grid; gap: 2px; align-content: start; }
+.navpanel__heading {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  padding: 0 var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: var(--space-2);
+}
+
+.mobilenav__heading {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  padding: var(--space-3) 0 var(--space-1) var(--space-3);
+}
