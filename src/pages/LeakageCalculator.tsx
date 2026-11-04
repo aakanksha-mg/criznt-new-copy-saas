@@ -68,7 +68,7 @@ export default function LeakageCalculator() {
     // 2. Channel participant scale factor:
     // Scale impact: higher distributor, broker, and bank density increases cross-boundary friction
     const totalParticipants = distributorsCount + employeesCount + brokersCount + banksCount * 50; // banks weighted by branch reach
-    const participantFactor = Math.min(1, Math.log10(Math.max(totalParticipants, 100)) / 4.5);
+    const participantFactor = Math.min(1, Math.log10(Math.max(totalParticipants, 100)) / 7.0);
 
     // Combined complexity position (0 to 1)
     const position = Math.min(
@@ -89,7 +89,7 @@ export default function LeakageCalculator() {
     // Bancassurance: Banks have multi-party revenue shares, EOM expense caps, and TDS timing issues
     const bankWeight = banksCount > 0 ? Math.min(0.35, 0.12 + (banksCount / 40) * 0.20) : 0.05;
     // Brokers: High exposure to early policy surrender & unrecovered clawbacks
-    const brokerWeight = Math.min(0.40, 0.18 + (brokersCount / 50000) * 0.18);
+    const brokerWeight = Math.min(0.40, 0.18 + (Math.log10(Math.max(brokersCount, 10)) / 7.0) * 0.22);
     // Distributors: High exposure to secondary sales claims, rebate adjustments, and credit notes
     const distributorWeight = Math.min(0.30, 0.15 + (distributorsCount / 5000) * 0.15);
     // Employees: Hierarchy override drift and territory misalignment
@@ -537,7 +537,12 @@ Run parallel reconciliation against your last closed cycle: https://www.crizant.
                     Brokers, Corporate Agents &amp; POSPs
                   </label>
                   <output className="calc__rangeval" htmlFor="brokers">
-                    {brokersCount.toLocaleString()} intermediaries
+                    {brokersCount >= 10000000
+                      ? '10,000,000 (1 Crore)'
+                      : brokersCount >= 100000
+                      ? `${brokersCount.toLocaleString()} (${(brokersCount / 100000).toFixed(brokersCount % 100000 === 0 ? 0 : 1)} Lakhs)`
+                      : brokersCount.toLocaleString()}{' '}
+                    intermediaries
                   </output>
                 </div>
                 <input
@@ -545,13 +550,26 @@ Run parallel reconciliation against your last closed cycle: https://www.crizant.
                   className="range"
                   type="range"
                   min={0}
-                  max={20000}
-                  step={250}
+                  max={10000000}
+                  step={brokersCount >= 1000000 ? 50000 : brokersCount >= 100000 ? 5000 : 250}
                   value={brokersCount}
                   onChange={(e) => setBrokersCount(Number(e.target.value))}
                 />
-                <p className="field__hint">
-                  Key risk: Early surrender/cancellation clawbacks lost over time, multi-tier split schedules, and statement disputes.
+                <div className="cluster" style={{ gap: '6px', marginTop: '6px', flexWrap: 'wrap' }}>
+                  {[3500, 25000, 100000, 500000, 2000000, 10000000].map((val) => (
+                    <button
+                      key={val}
+                      type="button"
+                      className={`btn btn--xs ${brokersCount === val ? 'btn--accent' : 'btn--ghost'}`}
+                      style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: '4px' }}
+                      onClick={() => setBrokersCount(val)}
+                    >
+                      {val >= 10000000 ? '10M (1 Cr)' : val >= 100000 ? `${val / 100000}L` : val.toLocaleString()}
+                    </button>
+                  ))}
+                </div>
+                <p className="field__hint" style={{ marginTop: 'var(--space-2)' }}>
+                  Key risk: Early surrender/cancellation clawbacks lost over time, multi-tier split schedules, and statement disputes across up to 10,000,000 intermediaries.
                 </p>
               </div>
 
@@ -729,7 +747,7 @@ Run parallel reconciliation against your last closed cycle: https://www.crizant.
                   <div className="waterfall__row">
                     <div className="waterfall__meta">
                       <span className="waterfall__label">
-                        <strong>Brokers &amp; Corporate Agents</strong> ({brokersCount.toLocaleString()} entities)
+                        <strong>Brokers, Corporate Agents &amp; POSPs</strong> ({brokersCount >= 10000000 ? '10M / 1 Cr' : brokersCount >= 100000 ? `${brokersCount.toLocaleString()} (${(brokersCount / 100000).toFixed(brokersCount % 100000 === 0 ? 0 : 1)}L)` : brokersCount.toLocaleString()} intermediaries)
                       </span>
                       <span className="waterfall__val" style={{ color: 'var(--azure)' }}>
                         {compact(result.brokerLeakage, currency)}

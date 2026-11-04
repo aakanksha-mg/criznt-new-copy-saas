@@ -57,14 +57,19 @@ Verified via Crizant Deployment Benchmarks`;
             <input
               type="range"
               min="250"
-              max="20000"
-              step="250"
+              max="10000000"
+              step={sellers >= 1000000 ? 50000 : sellers >= 100000 ? 5000 : 250}
               value={sellers}
               onChange={(e) => setSellers(parseInt(e.target.value, 10))}
               style={{ width: '100%', accentColor: 'var(--cyan)' }}
             />
             <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--white)', fontSize: '0.84rem' }}>
-              {sellers.toLocaleString('en-IN')} Sellers
+              {sellers >= 10000000
+                ? '10,000,000 (1 Cr)'
+                : sellers >= 100000
+                ? `${sellers.toLocaleString('en-IN')} (${(sellers / 100000).toFixed(sellers % 100000 === 0 ? 0 : 1)}L)`
+                : sellers.toLocaleString('en-IN')}{' '}
+              Sellers
             </div>
           </div>
 
