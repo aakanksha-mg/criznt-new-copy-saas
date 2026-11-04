@@ -28,9 +28,9 @@ const PRINCIPAL_DATA: Record<PrincipalId, PrincipalGroup> = {
     revenueLabel: 'Brokerage Earned (12.0% avg)',
     revenue: '₹4.58 Cr',
     partners: [
-      { name: 'Tata AIG General', target: '₹18.0 Cr', achieved: '₹15.4 Cr', shortfall: '₹2.6 Cr', yield: '13.5%' },
-      { name: 'HDFC Life Insurance', target: '₹15.0 Cr', achieved: '₹13.1 Cr', shortfall: '₹1.9 Cr', yield: '11.8%' },
-      { name: 'ICICI Lombard GIC', target: '₹12.0 Cr', achieved: '₹9.7 Cr', shortfall: '₹2.3 Cr', yield: '10.5%' },
+      { name: 'Apex General Insurance', target: '₹18.0 Cr', achieved: '₹15.4 Cr', shortfall: '₹2.6 Cr', yield: '13.5%' },
+      { name: 'Zenith Life Insurance', target: '₹15.0 Cr', achieved: '₹13.1 Cr', shortfall: '₹1.9 Cr', yield: '11.8%' },
+      { name: 'Meridian General Insurance', target: '₹12.0 Cr', achieved: '₹9.7 Cr', shortfall: '₹2.3 Cr', yield: '10.5%' },
     ],
     note: 'Premium sourced and brokerage earned are tracked separately: brokerage follows carrier reconciliation, not booking.',
   },
@@ -44,9 +44,9 @@ const PRINCIPAL_DATA: Record<PrincipalId, PrincipalGroup> = {
     revenueLabel: 'Sourcing Fee (3.0% avg)',
     revenue: '₹85.5 L',
     partners: [
-      { name: 'Axis Bank Commercial', target: '₹14.0 Cr', achieved: '₹13.8 Cr', shortfall: '₹0.2 Cr', yield: '3.2%' },
-      { name: 'Bajaj Finance SME', target: '₹10.0 Cr', achieved: '₹9.1 Cr', shortfall: '₹0.9 Cr', yield: '2.8%' },
-      { name: 'Tata Capital NBFC', target: '₹6.0 Cr', achieved: '₹5.6 Cr', shortfall: '₹0.4 Cr', yield: '3.0%' },
+      { name: 'Vanguard Commercial Bank', target: '₹14.0 Cr', achieved: '₹13.8 Cr', shortfall: '₹0.2 Cr', yield: '3.2%' },
+      { name: 'Beacon SME Capital', target: '₹10.0 Cr', achieved: '₹9.1 Cr', shortfall: '₹0.9 Cr', yield: '2.8%' },
+      { name: 'Horizon Enterprise NBFC', target: '₹6.0 Cr', achieved: '₹5.6 Cr', shortfall: '₹0.4 Cr', yield: '3.0%' },
     ],
     note: 'Payout follows actual loan disbursal rather than proposal sourcing: zero unearned advance accrual.',
   },
@@ -61,9 +61,9 @@ const PRINCIPAL_DATA: Record<PrincipalId, PrincipalGroup> = {
     revenueLabel: 'Annualized Trail Run-Rate',
     revenue: '₹62.5 L/yr',
     partners: [
-      { name: 'HDFC Mutual Fund', target: '₹45.0 Cr', achieved: '₹48.1 Cr', shortfall: '+₹3.1 Cr', yield: '0.65%' },
-      { name: 'SBI Mutual Fund', target: '₹35.0 Cr', achieved: '₹36.0 Cr', shortfall: '+₹1.0 Cr', yield: '0.58%' },
-      { name: 'ICICI Prudential AMC', target: '₹20.0 Cr', achieved: '₹20.1 Cr', shortfall: '+₹0.1 Cr', yield: '0.60%' },
+      { name: 'Pinnacle Asset Management', target: '₹45.0 Cr', achieved: '₹48.1 Cr', shortfall: '+₹3.1 Cr', yield: '0.65%' },
+      { name: 'Sterling Asset Trust', target: '₹35.0 Cr', achieved: '₹36.0 Cr', shortfall: '+₹1.0 Cr', yield: '0.58%' },
+      { name: 'Crestline Asset Management', target: '₹20.0 Cr', achieved: '₹20.1 Cr', shortfall: '+₹0.1 Cr', yield: '0.60%' },
     ],
     note: 'Trail revenue accrues continuously on daily average AUM rather than settling as a one-time transaction.',
   },
@@ -273,10 +273,10 @@ export function SureHeroSimulator() {
                 </thead>
                 <tbody>
                   {[
-                    { id: 'TATA', carrier: 'Tata AIG General', rate: '0.048%', excess: '₹25,000', warranty: 'Institute Cargo Clauses (A) Full', recommended: true },
-                    { id: 'ICICI', carrier: 'ICICI Lombard GIC', rate: '0.052%', excess: '₹20,000', warranty: 'Standard Transit Clauses', recommended: false },
-                    { id: 'HDFC', carrier: 'HDFC ERGO General', rate: '0.050%', excess: '₹50,000', warranty: 'High Excess Clause', recommended: false },
-                    { id: 'NEWINDIA', carrier: 'The New India Assurance', rate: '0.046%', excess: '₹1,00,000', warranty: 'Restricted Overland Transit', recommended: false },
+                    { id: 'APEX', carrier: 'Apex General Insurance', rate: '0.048%', excess: '₹25,000', warranty: 'Institute Cargo Clauses (A) Full', recommended: true },
+                    { id: 'MERIDIAN', carrier: 'Meridian General Insurance', rate: '0.052%', excess: '₹20,000', warranty: 'Standard Transit Clauses', recommended: false },
+                    { id: 'ZENITH', carrier: 'Zenith General Insurance', rate: '0.050%', excess: '₹50,000', warranty: 'High Excess Clause', recommended: false },
+                    { id: 'HORIZON', carrier: 'Horizon Marine Assurance', rate: '0.046%', excess: '₹1,00,000', warranty: 'Restricted Overland Transit', recommended: false },
                   ].map((q) => {
                     const isPicked = selectedQuote === q.id;
                     return (

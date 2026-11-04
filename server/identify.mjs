@@ -3,50 +3,19 @@ import dns from 'node:dns/promises';
 // In-memory cache for IP resolution to eliminate redundant lookups
 const ipCache = new Map();
 
-// Known Indian & Global Enterprise Org / Domain Signatures
-const KNOWN_ENTERPRISES = [
-  // Banks
-  { match: /hdfc/i, name: 'HDFC Bank', domain: 'hdfcbank.com', industry: 'Banking & Financial Services' },
-  { match: /icici/i, name: 'ICICI Bank / ICICI Lombard', domain: 'icicibank.com', industry: 'Banking & Insurance' },
-  { match: /state bank of india|sbi/i, name: 'State Bank of India', domain: 'sbi.co.in', industry: 'Banking' },
-  { match: /axis bank/i, name: 'Axis Bank', domain: 'axisbank.com', industry: 'Banking' },
-  { match: /kotak/i, name: 'Kotak Mahindra Bank', domain: 'kotak.com', industry: 'Banking & Insurance' },
-  { match: /bajaj/i, name: 'Bajaj Finserv / Allianz', domain: 'bajajfinserv.in', industry: 'Financial Services & Insurance' },
-  { match: /tata aig|tata/i, name: 'Tata Group / Tata AIG', domain: 'tata.com', industry: 'Conglomerate & Insurance' },
-  { match: /max life/i, name: 'Max Life Insurance', domain: 'maxlifeinsurance.com', industry: 'Insurance' },
-  { match: /star health/i, name: 'Star Health Insurance', domain: 'starhealth.in', industry: 'Insurance' },
-  { match: /standard chartered/i, name: 'Standard Chartered Bank', domain: 'sc.com', industry: 'Banking' },
-  { match: /citibank|citi/i, name: 'Citi', domain: 'citigroup.com', industry: 'Banking' },
-  { match: /jpmorgan|chase/i, name: 'JPMorgan Chase', domain: 'jpmorgan.com', industry: 'Investment Banking' },
-  { match: /hsbc/i, name: 'HSBC', domain: 'hsbc.com', industry: 'Banking' },
-
-  // FMCG, Retail & Conglomerates
-  { match: /hindustan unilever|unilever/i, name: 'Hindustan Unilever', domain: 'hul.co.in', industry: 'FMCG' },
-  { match: /itc/i, name: 'ITC Limited', domain: 'itcportal.com', industry: 'FMCG & Conglomerate' },
-  { match: /nestle/i, name: 'Nestlé', domain: 'nestle.in', industry: 'FMCG' },
-  { match: /reliance|jio/i, name: 'Reliance Industries / Jio', domain: 'ril.com', industry: 'Conglomerate' },
-  { match: /adani/i, name: 'Adani Group', domain: 'adani.com', industry: 'Conglomerate' },
-  { match: /marico/i, name: 'Marico Limited', domain: 'marico.com', industry: 'FMCG' },
-  { match: /dabur/i, name: 'Dabur India', domain: 'dabur.com', industry: 'FMCG & Healthcare' },
-
-  // Pharma & Healthcare
-  { match: /sun pharma/i, name: 'Sun Pharmaceutical', domain: 'sunpharma.com', industry: 'Pharmaceuticals' },
-  { match: /dr\.? reddy/i, name: "Dr. Reddy's Laboratories", domain: 'drreddys.com', industry: 'Pharmaceuticals' },
-  { match: /cipla/i, name: 'Cipla Limited', domain: 'cipla.com', industry: 'Pharmaceuticals' },
-  { match: /apollo hospitals/i, name: 'Apollo Hospitals', domain: 'apollohospitals.com', industry: 'Healthcare' },
-
-  // Technology & Telecom
-  { match: /bharti airtel|airtel/i, name: 'Bharti Airtel', domain: 'airtel.in', industry: 'Telecommunications' },
-  { match: /infosys/i, name: 'Infosys Limited', domain: 'infosys.com', industry: 'Technology' },
-  { match: /wipro/i, name: 'Wipro Limited', domain: 'wipro.com', industry: 'Technology' },
-  { match: /google/i, name: 'Google', domain: 'google.com', industry: 'Technology' },
-  { match: /microsoft/i, name: 'Microsoft', domain: 'microsoft.com', industry: 'Technology' },
-  { match: /amazon/i, name: 'Amazon', domain: 'amazon.com', industry: 'Technology' },
+// Generic Enterprise Industry Signatures
+const INDUSTRY_PATTERNS = [
+  { match: /insurance|life|general|gic/i, industry: 'Insurance & Assurance' },
+  { match: /bank|financial|finserv|capital|asset|mutual/i, industry: 'Banking & Financial Services' },
+  { match: /pharma|health|laborator/i, industry: 'Pharmaceuticals & Healthcare' },
+  { match: /fmcg|retail|consumer|foods/i, industry: 'FMCG & Consumer Goods' },
+  { match: /telecom|airtel|jio|network/i, industry: 'Telecommunications' },
+  { match: /tech|software|systems|cloud/i, industry: 'Technology & Enterprise Software' },
 ];
 
 /**
  * Extracts a clean company root domain from a hostname or reverse DNS string.
- * Example: 'corp-gw1.mumbai.hdfcbank.com' -> 'hdfcbank.com'
+ * Example: 'corp-gw1.gateway.enterprise.com' -> 'enterprise.com'
  */
 function extractRootDomain(host) {
   if (!host || typeof host !== 'string') return null;
@@ -104,17 +73,16 @@ export async function identifyCompany(req) {
     ip.startsWith('172.20.');
 
   if (isLocal) {
-    // In local development, provide a realistic default enterprise profile
     const localResult = {
       ip,
-      domain: 'hdfcbank.com',
-      name: 'HDFC Bank (Development Environment)',
-      industry: 'Banking & Financial Services',
-      city: 'Mumbai',
-      country: 'India',
+      domain: null,
+      name: null,
+      industry: 'Enterprise Channel Architecture',
+      city: 'Local Workspace',
+      country: 'Development',
       isp: 'Local Corporate Gateway',
-      isCorporate: true,
-      detectionMethod: 'localhost_dev_profile',
+      isCorporate: false,
+      detectionMethod: 'local_environment',
     };
     ipCache.set(ip, localResult);
     return localResult;
@@ -140,19 +108,15 @@ export async function identifyCompany(req) {
       const rootDomain = extractRootDomain(primaryHost);
       result.isp = primaryHost;
 
-      // Check if hostname matches any known enterprise
-      for (const ent of KNOWN_ENTERPRISES) {
-        if (ent.match.test(primaryHost)) {
-          result.domain = ent.domain;
-          result.name = ent.name;
-          result.industry = ent.industry;
-          result.isCorporate = true;
-          result.detectionMethod = 'reverse_dns_match';
+      // Deduce industry from reverse DNS hostname
+      for (const pattern of INDUSTRY_PATTERNS) {
+        if (pattern.match.test(primaryHost)) {
+          result.industry = pattern.industry;
           break;
         }
       }
 
-      // If not in dictionary but rootDomain looks like a corporate domain
+      // If rootDomain looks like a corporate domain
       if (!result.domain && rootDomain && !rootDomain.includes('broadband') && !rootDomain.includes('dynamic') && !rootDomain.includes('telecom')) {
         result.domain = rootDomain;
         result.name = rootDomain.split('.')[0].toUpperCase();
@@ -184,13 +148,9 @@ export async function identifyCompany(req) {
           result.isp = geo.isp || geo.org;
 
           const orgString = `${geo.org || ''} ${geo.isp || ''} ${geo.as || ''}`;
-          for (const ent of KNOWN_ENTERPRISES) {
-            if (ent.match.test(orgString)) {
-              result.domain = ent.domain;
-              result.name = ent.name;
-              result.industry = ent.industry;
-              result.isCorporate = true;
-              result.detectionMethod = 'asn_org_match';
+          for (const pattern of INDUSTRY_PATTERNS) {
+            if (pattern.match.test(orgString)) {
+              result.industry = pattern.industry;
               break;
             }
           }

@@ -13,6 +13,22 @@ export interface CompanyProfile {
 const VISITOR_ID_KEY = 'crizant_vid';
 const COMPANY_CACHE_KEY = 'crizant_comp';
 
+const FORBIDDEN_NAMES = /hdfc|icici|state bank of india|sbi|axis bank|kotak|bajaj|tata aig/i;
+
+function sanitizeProfile(profile: CompanyProfile | null): CompanyProfile | null {
+  if (!profile) return null;
+  if (
+    (profile.companyName && FORBIDDEN_NAMES.test(profile.companyName)) ||
+    (profile.companyDomain && /hdfc|icici|sbi|axisbank|kotak/i.test(profile.companyDomain))
+  ) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(COMPANY_CACHE_KEY);
+    }
+    return null;
+  }
+  return profile;
+}
+
 export function getVisitorId(): string {
   if (typeof window === 'undefined') return 'ssr_visitor';
   let vid = localStorage.getItem(VISITOR_ID_KEY);
@@ -59,8 +75,14 @@ export async function identifyVisitor(path = '/'): Promise<CompanyProfile | null
     if (res.ok) {
       const data = await res.json();
       if (data.identified) {
-        localStorage.setItem(COMPANY_CACHE_KEY, JSON.stringify(data.identified));
-        return data.identified;
+        const sanitized = sanitizeProfile(data.identified);
+        if (sanitized) {
+          localStorage.setItem(COMPANY_CACHE_KEY, JSON.stringify(sanitized));
+          return sanitized;
+        } else {
+          localStorage.removeItem(COMPANY_CACHE_KEY);
+          return null;
+        }
       }
     }
   } catch (err) {
@@ -70,7 +92,9 @@ export async function identifyVisitor(path = '/'): Promise<CompanyProfile | null
   // Fallback to cached company if network request fails
   try {
     const cached = localStorage.getItem(COMPANY_CACHE_KEY);
-    if (cached) return JSON.parse(cached);
+    if (cached) {
+      return sanitizeProfile(JSON.parse(cached));
+    }
   } catch {
     // ignore
   }
@@ -86,7 +110,7 @@ export function useCompanyIdentification() {
     if (typeof window === 'undefined') return null;
     try {
       const cached = localStorage.getItem(COMPANY_CACHE_KEY);
-      return cached ? JSON.parse(cached) : null;
+      return cached ? sanitizeProfile(JSON.parse(cached)) : null;
     } catch {
       return null;
     }

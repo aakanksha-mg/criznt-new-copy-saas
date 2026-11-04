@@ -303,8 +303,8 @@ export function ReconciliationLedgerSandbox() {
             </thead>
             <tbody>
               {[
-                { carrier: 'Tata AIG General (INR)', claimed: '₹14,20,500', verified: '₹14,20,500', fx: '1.00', variance: '₹0.00', status: 'Balanced' },
-                { carrier: 'HDFC Life Insurance (INR)', claimed: '₹28,45,000', verified: '₹28,45,000', fx: '1.00', variance: '₹0.00', status: 'Balanced' },
+                { carrier: 'Apex General Insurance (INR)', claimed: '₹14,20,500', verified: '₹14,20,500', fx: '1.00', variance: '₹0.00', status: 'Balanced' },
+                { carrier: 'Zenith Life Insurance (INR)', claimed: '₹28,45,000', verified: '₹28,45,000', fx: '1.00', variance: '₹0.00', status: 'Balanced' },
                 { carrier: 'Dubai National Ins (AED)', claimed: 'AED 84,200', verified: 'AED 84,200', fx: '22.84', variance: '₹0.00', status: 'Balanced' },
                 { carrier: 'Swiss Re Overseas (USD)', claimed: '$12,500', verified: '$12,500', fx: '83.92', variance: '₹0.00', status: 'Balanced' },
               ].map((row) => (
