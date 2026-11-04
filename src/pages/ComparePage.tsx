@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
+import { ComparisonDiffMatrix } from '@/components/compare/ComparisonDiffMatrix';
 import { comparisons, comparisonBySlug } from '@/data/compare';
 import NotFound from './NotFound';
 
@@ -58,7 +59,10 @@ export default function ComparePage() {
 
       <section className="section section--tight section--sunken">
         <div className="container">
-          <SectionHead eyebrow="Side by side" title={`Crizant One against ${c.otherLabel.toLowerCase()}`} />
+          <ComparisonDiffMatrix currentSlug={c.slug} />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead eyebrow="Side by side" title={`Crizant One against ${c.otherLabel.toLowerCase()}`} />
+          </div>
           <div className="tablewrap">
             <table className="data">
               <caption>

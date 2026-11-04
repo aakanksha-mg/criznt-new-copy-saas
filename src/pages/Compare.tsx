@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta } from '@/components/ui';
 import { Stagger } from '@/components/motion';
+import { ComparisonDiffMatrix } from '@/components/compare/ComparisonDiffMatrix';
 import { comparisons } from '@/data/compare';
 
 export default function Compare() {
@@ -39,6 +40,14 @@ export default function Compare() {
 
       <section className="section">
         <div className="container">
+          <ComparisonDiffMatrix />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead
+              eyebrow="Direct Competitor Analyses"
+              title="Three specific alternative paths"
+              lead="Select an architectural comparison to examine code, data model, and operational trade-offs."
+            />
+          </div>
           <Stagger className="grid grid--3">
             {comparisons.map((c) => (
               <Link key={c.slug} to={`/compare/${c.slug}`} className="card card--hover card--pad-lg spot">

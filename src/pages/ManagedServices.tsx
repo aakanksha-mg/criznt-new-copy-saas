@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
+import { SlaRunbookSimulator } from '@/components/managed/SlaRunbookSimulator';
 import { managedSteps, inHouseVsManaged } from '@/data/managed';
 import { answers } from '@/data/answers';
 import { platformMetrics } from '@/data/metrics';
@@ -74,7 +75,10 @@ export default function ManagedServices() {
 
       <section className="section section--sunken">
         <div className="container">
-          <SectionHead eyebrow="What we take on" title="Five things, on an SLA" />
+          <SlaRunbookSimulator />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead eyebrow="What we take on" title="Five things, on an SLA" />
+          </div>
           <ol className="steps" style={{ maxWidth: '80ch' }}>
             {managedSteps.map((s) => (
               <li key={s.title}>

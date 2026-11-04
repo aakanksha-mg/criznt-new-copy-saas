@@ -22,7 +22,7 @@ const NODES: Node[] = [
     summary: 'Streaming API & scheduled batch file ingress with cryptographic schema continuity check against prior period.',
     contract: 'Strict schema enforcement; rejects unannounced upstream schema drift; isolates malformed payloads.',
     sla: '100% schema continuity verified',
-    to: '/platform/calculation-engine',
+    to: '/platform/scheme-builder',
   },
   {
     id: 'bitemporal',
@@ -32,7 +32,7 @@ const NODES: Node[] = [
     summary: 'Append-only event and system time graph holding 6 hierarchy tiers, partner contracts, and commission matrices.',
     contract: 'Zero row mutation; records both event occurrence time and system assertion time; sub-millisecond point-in-time slice.',
     sla: 'Bit-exact replay for 7+ years',
-    to: '/platform/hierarchy-team-master',
+    to: '/platform/distribution-management',
   },
   {
     id: 'vector-engine',
@@ -42,7 +42,7 @@ const NODES: Node[] = [
     summary: 'Partitioned calculation runtime evaluating 184,207 transactions against 42 live schemes using 64-bit fixed-point integer math.',
     contract: 'Pure mathematical function; zero IEEE-754 float drift; partitioned by hierarchy branch to eliminate row locks.',
     sla: '< 0.5ms evaluation per transaction',
-    to: '/platform/calculation-engine',
+    to: '/platform/scheme-builder',
   },
   {
     id: 'quarantine',
@@ -52,7 +52,7 @@ const NODES: Node[] = [
     summary: 'Pre-disbursement quarantine blocking duplicate qualifications, zombie overrides, and untracked policy-lapse clawbacks.',
     contract: 'Hard gate: disbursements locked until all flagged exceptions are verified or adjusted with derivation proof.',
     sla: '3-8% leakage prevented at source',
-    to: '/platform/anomaly-leakage-guard',
+    to: '/platform/ai-intelligence',
   },
   {
     id: 'reconcile',
@@ -62,7 +62,7 @@ const NODES: Node[] = [
     summary: 'Double-entry tie-out balancing transaction-grain sub-ledger against the enterprise general ledger (SAP, Oracle, NetSuite).',
     contract: 'Credits == Debits; transaction-level FX rates recorded; zero unexplained variance at month-end.',
     sla: '100% GL-to-subledger tie-out',
-    to: '/platform/reconciliation-ledger',
+    to: '/platform/reconciliation',
   },
   {
     id: 'pwa',

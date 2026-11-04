@@ -1,6 +1,7 @@
 import { Icon } from '@/components/Icon';
 import { SectionHead, Breadcrumbs, Cta, Stat, CheckList } from '@/components/ui';
 import { Faq } from '@/components/Faq';
+import { RegulatoryRuleAuditor } from '@/components/compliance/RegulatoryRuleAuditor';
 import { frameworks, servedRegions } from '@/data/compliance';
 import { regulatoryFacts } from '@/data/metrics';
 import { answers } from '@/data/answers';
@@ -34,7 +35,10 @@ export default function Compliance() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Pre-built" title="Frameworks shipped in the product" />
+          <RegulatoryRuleAuditor />
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <SectionHead eyebrow="Pre-built" title="Frameworks shipped in the product" />
+          </div>
           <div className="stack stack--lg">
             {frameworks.map((f) => (
               <div className="card card--pad-lg" key={f.region}>
