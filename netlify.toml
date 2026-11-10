@@ -1,0 +1,5 @@
+[build]
+  # Full build: client bundle + SSR bundle + prerender of every route to static HTML.
+  command = "npm run build"
+  # The prerendered site (including index.html and 404.html) is written here.
+  publish = "dist/client"
